@@ -1,0 +1,171 @@
+﻿<Window x:Class="TechsOOPlab.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TechsOOPlab"
+        xmlns:model="clr-namespace:TechsOOPlab.Model"
+        mc:Ignorable="d"
+        Title="LINQ" Height="450" Width="800">
+    <Window.Resources>
+        <model:Article x:Key="ArticleSource"></model:Article>
+        <model:Monograph x:Key="=MonographSource"></model:Monograph>
+        <model:Presentation x:Key="PresentationSource"></model:Presentation>
+        <model:Report x:Key="ReportSource"></model:Report>
+        <model:Researcher x:Key="ResearcherSource"></model:Researcher>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <MenuItem Header="Редактирование">
+                <MenuItem Header="New Project" ></MenuItem>
+                <MenuItem Header="Open Project" >
+                    <MenuItem Header="WinForms"></MenuItem>
+                    <MenuItem Header="WPF" ></MenuItem>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Exit" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Просмотр" ></MenuItem>
+            <MenuItem Header="Запросы" >
+                <MenuItem Header="Доклады на конференциях"></MenuItem>
+                <MenuItem Header="Число страниц в отчётах" ></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ToolBarTray Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <ToolBar Height="25" VerticalAlignment="Top">
+                <TextBox Foreground="LightGray" Width="100">Поиск...</TextBox>
+            </ToolBar>
+            <ToolBar>
+                <Button>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="10" Height="10" Fill="Black"  HorizontalAlignment="Left"/>
+                        <TextBlock HorizontalAlignment="Right" Width="60" Margin="5 0 0 0">Найти</TextBlock>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <TabControl x:Name="ResearcherAchivementsTab" Grid.Row="2" Grid.Column="1">
+            <TabItem x:Name="ReportsTab">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="10" Width="10" Fill="Black" />
+                        <TextBlock Margin="3">Научные отчёты</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <DataGrid DataContext="{ Binding SelectedResearcher }" Height="auto" ItemsSource="{ Binding Researchers }">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="Название" Binding="{Binding Name }"/>
+                            <DataGridTextColumn Width="*" Header="Регистрационный номер" Binding="{Binding RegisterNumber }"/>
+                            <DataGridTextColumn Width="*" Header="Год выпуска" Binding="{Binding ReleaseDate}"/>
+                            <DataGridTextColumn Width="*" Header="Число страниц" Binding="{Binding PageCount}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="ArticleTab">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Height="10" Width="10" Fill="Black" />
+                        <TextBlock Margin="3">Статьи</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <DataGrid DataContext="{ Binding SelectedResearcher }" Height="auto" ItemsSource="{ Binding Researchers }">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="Название статьи" Binding="{Binding Name }"/>
+                            <DataGridTextColumn Width="*" Header="Название журнала" Binding="{Binding MagazineName }"/>
+                            <DataGridTextColumn Width="*" Header="Дата издания" Binding="{Binding ReleaseDate}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="PresentationTab">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Height="10" Width="10" Fill="Black" />
+                        <TextBlock Margin="3">Доклады</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <DataGrid DataContext="{ Binding SelectedResearcher }" Height="auto" ItemsSource="{ Binding Researchers }">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="Название доклада" Binding="{Binding Name }"/>
+                            <DataGridTextColumn Width="*" Header="Название конференции" Binding="{Binding ConferenceName }"/>
+                            <DataGridTextColumn Width="*" Header="Дата выступления" Binding="{Binding ReleaseDate}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="MonographTab">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Height="10" Width="10" Fill="Black" />
+                        <TextBlock Margin="3">Монографии</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <DataGrid DataContext="{ Binding SelectedResearcher }" Height="auto" ItemsSource="{ Binding Researchers }">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="Название" Binding="{Binding Name }"/>
+                            <DataGridTextColumn Width="*" Header="ФИО соавтора" Binding="{Binding ConferenceName }"/>
+                            <DataGridTextColumn Width="*" Header="Год издания" Binding="{Binding ReleaseDate}"/>
+                            <DataGridTextColumn Width="*" Header="Число страниц" Binding="{Binding PageCount}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+        <DataGrid SelectedItem="{Binding SelectedResearcher}" CanUserAddRows="False" AutoGenerateColumns="False" Grid.Row="2" Grid.Column="0" ItemsSource="{ Binding Researchers }">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="ФИО" Binding="{Binding FullName }"/>
+                <DataGridTextColumn Width="*" Header="№ отдела" Binding="{Binding DepartmentNumber }"/>
+                <DataGridTextColumn Width="*" Header="Возраст" Binding="{Binding Age}"/>
+                <DataGridTextColumn Width="*" Header="Ученая степень" Binding="{Binding AcademicDegree}"/>
+                <DataGridTextColumn Width="*" Header="Должность" Binding="{Binding Position}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ToolBarTray Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <ToolBar Height="25" VerticalAlignment="Top">
+                <Button Click="AddResearcherButton_Click">
+                    <TextBlock>Добавить</TextBlock>
+                </Button>
+                <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
+                <Button>
+                    <TextBlock>Изменить</TextBlock>
+                </Button>
+                <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
+                <Button>
+                    <TextBlock>Удалить</TextBlock>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <ToolBarTray Grid.Row="3" Grid.Column="1">
+            <ToolBar Height="25" VerticalAlignment="Top">
+                <Button Click="AddResearcherButton_Click">
+                    <TextBlock>Добавить</TextBlock>
+                </Button>
+                <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
+                <Button>
+                    <TextBlock>Изменить</TextBlock>
+                </Button>
+                <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
+                <Button>
+                    <TextBlock>Удалить</TextBlock>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+
+    </Grid>
+</Window>
+

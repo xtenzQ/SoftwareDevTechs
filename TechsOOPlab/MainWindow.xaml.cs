@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using TechsOOPlab.Forms;
+using TechsOOPlab.Model;
+using TechsOOPlab.ViewModel;
+
+namespace TechsOOPlab
+{
+    /// <summary>
+    /// Логика взаимодействия для MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        // модель представления данных
+        private MainWindowViewModel _model;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            // создали модель
+            _model = new MainWindowViewModel {Researchers = new ObservableCollection<Researcher>(ModelContext.Researchers)};
+            // связали с окном
+            DataContext = _model;
+            // 
+            //AddResearcher();
+        }
+
+        private void AddResearcher(Researcher researcher)
+        {
+            // В хранилище
+            ModelContext.Researchers.Add(researcher);
+            // В отображаемой коллекции
+            _model.Researchers.Add(researcher);
+        }
+
+        private void AddResearcherButton_Click(object sender, RoutedEventArgs e)
+        {
+            var windowRes = new AddResearcher(false);
+            windowRes.
+            if (windowRes.ShowDialog() == true)
+            {
+                
+            }
+           
+        }
+
+        private void DeleteResearcher(Researcher researcher)
+        {
+
+        }
+
+    }
+}
