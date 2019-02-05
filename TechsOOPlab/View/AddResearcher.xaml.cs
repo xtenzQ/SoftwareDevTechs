@@ -22,6 +22,7 @@ namespace TechsOOPlab.Forms
     public partial class AddResearcher : Window
     {
         public ResearcherViewModel Researcher { get; }
+        private ResearcherViewModel _model;
 
         private bool _isEdit;
 
@@ -32,17 +33,8 @@ namespace TechsOOPlab.Forms
             if (isEdit && researcher == null)
                 throw new ArgumentNullException(nameof(researcher), "Обязатльно нужен исследователь");
             Researcher = researcher ?? new ResearcherViewModel();
-            DataContext = Researcher;
-        }
-
-        private void AddResearcherButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            
+            _model = _isEdit ? Researcher.Clone() : Researcher;
+            DataContext = _model;
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
@@ -50,6 +42,10 @@ namespace TechsOOPlab.Forms
             if (!_isEdit)
             {
                 ModelContext.Researchers.Add(Researcher.ToResearcher());
+            }
+            else
+            {
+                Researcher.Update(_model);
             }
             DialogResult = true;
         }

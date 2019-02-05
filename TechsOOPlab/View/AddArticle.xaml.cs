@@ -39,7 +39,7 @@ namespace TechsOOPlab.Forms
         {
             if (!_isEdit)
             {
-                ModelContext.Researchers.
+               // ModelContext.Researchers.Add();
             }
             DialogResult = true;
         }

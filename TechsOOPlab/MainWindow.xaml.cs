@@ -31,7 +31,14 @@ namespace TechsOOPlab
         {
             InitializeComponent();
             // создали модель
-            _model = new MainWindowViewModel {Researchers = new ObservableCollection<ResearcherViewModel>(ModelContext.Researchers.Select(r => new ResearcherViewModel(r)))};
+            _model = new MainWindowViewModel
+            {
+                Researchers = new ObservableCollection<ResearcherViewModel>(
+                    ModelContext.Researchers.Select(
+                        r => new ResearcherViewModel(r)
+                        )
+                    )
+            };
             // связали с окном
             DataContext = _model;
             // 
@@ -62,9 +69,8 @@ namespace TechsOOPlab
             var addWindow = new AddResearcher(true, _model.SelectedResearcher);
             if (addWindow.ShowDialog() ?? false)
             {
-                
-            }
 
+            }
         }
 
         private void DeleteResearcherButton_Click(object sender, RoutedEventArgs e)
@@ -78,7 +84,6 @@ namespace TechsOOPlab
         
         }
 
-
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
@@ -91,7 +96,38 @@ namespace TechsOOPlab
         {
             if (ArticleTab.IsSelected)
             {
-                var articleWindow = new AddArticle(false, null);
+                var addWindow = new AddArticle(false, null);
+                if (addWindow.ShowDialog() ?? false)
+                {
+                    _model.SelectedResearcher.AddArticle(addWindow.Article);
+                }
+            }
+        }
+
+        private void EditDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addWindow = new AddArticle(true, _model.SelectedArticle);
+            if (addWindow.ShowDialog() ?? false)
+            {
+                
+            }
+        }
+
+        private void DeleteDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ArticleTab.IsSelected)
+            {
+                if (_model.SelectedArticle == null) return;
+                _model.SelectedResearcher.DeleteArticle(_model.SelectedArticle);
+                _model.SelectedArticle = null;
+            }
+        }
+
+        private void ArticlesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                _model.SelectedArticle = (ArticleViewModel) e.AddedItems[0];
             }
         }
     }

@@ -8,9 +8,9 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         x:Class="TechsOOPlab.Forms.AddResearcher"
         mc:Ignorable="d"
-        Title="Добавить научного сотрудника" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Closed="Window_Closed">
+        Title="Добавить научного сотрудника" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Window.Resources>
-
+    
         <Style x:Key="placeHolder" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -28,6 +28,9 @@
                                             <DataTrigger Binding="{Binding Text, Source={x:Reference textSource}}" Value="">
                                                 <Setter Property="Foreground" Value="LightGray"/>
                                             </DataTrigger>
+                                            <Trigger Property="IsFocused" Value="True">
+                                                <Setter Property="BorderThickness" Value="3"/>
+                                            </Trigger>
                                         </Style.Triggers>
                                     </Style>
                                 </TextBox.Style>

@@ -95,10 +95,6 @@
     </Compile>
     <Compile Include="Model\ModelContext.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModel\AddArticleViewModel.cs" />
-    <Compile Include="ViewModel\AddMonographViewModel.cs" />
-    <Compile Include="ViewModel\AddPresentationViewModel.cs" />
-    <Compile Include="ViewModel\AddReportViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Page Include="View\AddArticle.xaml">
       <SubType>Designer</SubType>

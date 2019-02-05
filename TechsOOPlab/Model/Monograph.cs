@@ -15,7 +15,9 @@ namespace TechsOOPlab.Model
         public string Name { get; set; }
 
         // ФИО соавтора
-        public FullName CoauthorName { get; set; }
+        public string CoauthorLastName { get; set; }
+        public string CoauthorFirstName { get; set; }
+        public string CoauthorMiddleName { get; set; }
 
         // Год издания
         public DateTime ReleaseDate { get; set; }

@@ -68,7 +68,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid Height="auto" ItemsSource="{Binding Reports}">
+                    <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Height="auto" ItemsSource="{Binding Reports}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Название" Binding="{Binding Name }"/>
                             <DataGridTextColumn Width="*" Header="Регистрационный номер" Binding="{Binding RegisterNumber }"/>
@@ -86,7 +86,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid Height="auto">
+                    <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Height="auto" ItemsSource="{Binding Articles}" SelectionChanged="ArticlesDataGrid_SelectionChanged">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Название статьи" Binding="{Binding Name }"/>
                             <DataGridTextColumn Width="*" Header="Название журнала" Binding="{Binding MagazineName }"/>
@@ -103,7 +103,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid Height="auto">
+                    <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Height="auto" ItemsSource="{Binding Presentations}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Название доклада" Binding="{Binding Name }"/>
                             <DataGridTextColumn Width="*" Header="Название конференции" Binding="{Binding ConferenceName }"/>
@@ -120,7 +120,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid Height="auto">
+                    <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Height="auto">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Название" Binding="{Binding Name }"/>
                             <DataGridTextColumn Width="*" Header="ФИО соавтора" Binding="{Binding ConferenceName }"/>
@@ -131,7 +131,7 @@
                 </TabItem.Content>
             </TabItem>
         </TabControl>
-        <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Grid.Row="2" Grid.Column="0" ItemsSource="{ Binding Researchers }" SelectionChanged="DataGrid_SelectionChanged">
+        <DataGrid SelectionMode="Single" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" Grid.Row="2" Grid.Column="0" ItemsSource="{ Binding Researchers }" SelectionChanged="DataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Фамилия" Binding="{Binding LastName }"/>
                 <DataGridTextColumn Width="*" Header="Имя" Binding="{Binding FirstName }"/>
@@ -148,26 +148,26 @@
                     <TextBlock>Добавить</TextBlock>
                 </Button>
                 <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
-                <Button Click="EditResearcherButton_Click">
+                <Button IsEnabled="{Binding ResearcherAddIsEnabled}" Click="EditResearcherButton_Click">
                     <TextBlock>Изменить</TextBlock>
                 </Button>
                 <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
-                <Button Click="DeleteResearcherButton_Click">
+                <Button IsEnabled="{Binding ResearcherAddIsEnabled}" Click="DeleteResearcherButton_Click">
                     <TextBlock>Удалить</TextBlock>
                 </Button>
             </ToolBar>
         </ToolBarTray>
         <ToolBarTray Grid.Row="3" Grid.Column="1">
             <ToolBar Height="25" VerticalAlignment="Top">
-                <Button Click="AddDataButton_Click">
+                <Button IsEnabled="{Binding ResearcherAddIsEnabled}" Click="AddDataButton_Click">
                     <TextBlock>Добавить</TextBlock>
                 </Button>
                 <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
-                <Button>
+                <Button IsEnabled="{Binding ResearcherAddIsEnabled}" Click="EditDataButton_Click">
                     <TextBlock>Изменить</TextBlock>
                 </Button>
                 <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
-                <Button>
+                <Button IsEnabled="{Binding ResearcherAddIsEnabled}" Click="DeleteDataButton_Click">
                     <TextBlock>Удалить</TextBlock>
                 </Button>
             </ToolBar>

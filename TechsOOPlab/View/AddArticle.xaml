@@ -81,7 +81,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-            <Button Grid.Row="0" Grid.Column="0" Margin="5" Padding="5">
+            <Button Click="ButtonBase_OnClick"  Grid.Row="0" Grid.Column="0" Margin="5" Padding="5">
                 <TextBlock>Добавить</TextBlock>
             </Button>
         </Grid>
