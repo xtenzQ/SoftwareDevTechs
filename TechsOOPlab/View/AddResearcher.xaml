@@ -76,8 +76,8 @@
                 <TextBox x:Name="FirstFocus" Style="{StaticResource placeHolder}" Tag="Введите фамилию" Margin="5" MaxLength="250" Grid.Row="1" Grid.Column="1" TabIndex="0" Text="{Binding LastName}"/>
                 <TextBox Style="{StaticResource placeHolder}" Tag="Введите имя" Margin="5" MaxLength="250" Grid.Row="2" Grid.Column="1" TabIndex="1" Text="{Binding FirstName}"/>
                 <TextBox Style="{StaticResource placeHolder}" Tag="Введите отчество" Margin="5" MaxLength="250" Grid.Row="3" Grid.Column="1" TabIndex="2" Text="{Binding MiddleName}"/>
-                <xctk:IntegerUpDown Margin="5" MaxLength="250" Grid.Row="4" Grid.Column="1" TabIndex="3" HorizontalAlignment="Left" Text="{Binding DepartmentNumber}" />
-                <xctk:IntegerUpDown Margin="5" MaxLength="250" Grid.Row="5" Grid.Column="1" TabIndex="4" HorizontalAlignment="Left" Text="{Binding Age}" />
+                <xctk:IntegerUpDown Margin="5" MaxLength="250" Grid.Row="4" Grid.Column="1" TabIndex="3" HorizontalAlignment="Left" MinWidth="70" Text="{Binding DepartmentNumber}" />
+                <xctk:IntegerUpDown Margin="5" MaxLength="250" Grid.Row="5" Grid.Column="1" TabIndex="4" HorizontalAlignment="Left" MinWidth="70" Text="{Binding Age}" />
                 <ComboBox SelectedIndex="0" Margin="5" x:Name="AcademicDegree" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" TabIndex="5" ItemsSource="{Binding AcademicDegrees}" SelectedItem="{Binding AcademicDegree}"></ComboBox>
                 <TextBox Style="{StaticResource placeHolder}" Tag="Введите должность" Margin="5" Grid.Row="7" Grid.Column="1" TabIndex="6" Text="{Binding Position}"/>
             </Grid>

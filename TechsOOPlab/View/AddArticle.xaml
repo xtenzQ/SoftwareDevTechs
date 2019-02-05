@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TechsOOPlab.Forms"
+        xmlns:viewModel="clr-namespace:TechsOOPlab.ViewModel"
         mc:Ignorable="d"
         Title="Добавить статью" SizeToContent="WidthAndHeight" ResizeMode="NoResize" >
     <Window.Resources>
-
+        
         <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -38,7 +39,10 @@
             </Setter>
         </Style>
         </Window.Resources>
-        <Grid FocusManager.FocusedElement="{Binding ElementName=FirstFocus}">
+    <Window.DataContext>
+        <viewModel:ArticleViewModel/>
+    </Window.DataContext>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=FirstFocus}">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -64,18 +68,10 @@
                 <TextBlock VerticalAlignment="Center" Grid.Row="1" Grid.Column="0">Название статьи</TextBlock>
                     <TextBlock VerticalAlignment="Center" Grid.Row="2" Grid.Column="0">Название журнала</TextBlock>
                     <TextBlock VerticalAlignment="Center" Grid.Row="3" Grid.Column="0">Дата издания</TextBlock>
-                <TextBlock VerticalAlignment="Center" Grid.Row="4" Grid.Column="0">Научный сотрудник</TextBlock>
-
-                <TextBox x:Name="FirstFocus" Style="{StaticResource placeHolder}" Tag="Введите фамилию" Margin="5" MaxLength="250" Grid.Row="1" Grid.Column="1" TabIndex="0"></TextBox>
-                    <TextBox Style="{StaticResource placeHolder}" Tag="Введите имя" Margin="5" MaxLength="250" Grid.Row="2" Grid.Column="1" TabIndex="1"></TextBox>
-                <TextBox Style="{StaticResource placeHolder}" Tag="Введите отчество" Margin="5" MaxLength="250" Grid.Row="3" Grid.Column="1" TabIndex="2"></TextBox>
-                <ComboBox SelectedIndex="2" Margin="5" Name="AcademicDegree" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" TabIndex="5">
-                        <TextBlock>Доктор наук</TextBlock>
-                        <TextBlock>Кандидат наук</TextBlock>
-                        <TextBlock>Без учёной степени</TextBlock>
-                    </ComboBox>
-                  
-                </Grid>
+                    <TextBox x:Name="FirstFocus" Style="{StaticResource placeHolder}" Tag="Введите названние статьи" Margin="5" MaxLength="250" Grid.Row="1" Grid.Column="1" TabIndex="0" Text="{Binding Name}"></TextBox>
+                    <TextBox Style="{StaticResource placeHolder}" Tag="Введите название журнала" Margin="5" MaxLength="250" Grid.Row="2" Grid.Column="1" TabIndex="1" Text="{Binding MagazineName}"></TextBox>
+                <DatePicker Name="datePicker1" IsDropDownOpen="True" HorizontalAlignment="Left" MinWidth="130" SelectedDateFormat="Short" Margin="5" Grid.Row="3" Grid.Column="1" TabIndex="2" />
+            </Grid>
             </GroupBox>
             <Grid Grid.Row="1" Column="0" Height="auto">
                 <Grid.ColumnDefinitions>
@@ -85,12 +81,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" Grid.Column="0" Margin="5" Padding="5">
-                    <TextBlock>Добавить</TextBlock>
-                </Button>
-                <Button Grid.Row="0" Grid.Column="1" Margin="5" Padding="5">
-                    <TextBlock>Сохранить изменения</TextBlock>
-                </Button>
-            </Grid>
+            <Button Grid.Row="0" Grid.Column="0" Margin="5" Padding="5">
+                <TextBlock>Добавить</TextBlock>
+            </Button>
+        </Grid>
         </Grid>
 </Window>

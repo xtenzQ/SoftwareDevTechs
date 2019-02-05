@@ -10,13 +10,6 @@ namespace TechsOOPlab.ViewModel
     public class ResearcherViewModel : INotifyPropertyChanged
     {
         private Researcher _researcher;
-        private string _lastName;
-        private string _firstName;
-        private string _middleName;
-        private int _departmentNumber;
-        private int _age;
-        private string _academicDegree;
-        private string _position;
 
         // ФИО
         public string LastName
@@ -101,6 +94,7 @@ namespace TechsOOPlab.ViewModel
         }
 
         public ObservableCollection<ReportViewModel> Reports { get; set; }
+        public ObservableCollection<ArticleViewModel> Articles { get; set; }
 
         public ResearcherViewModel()
         {

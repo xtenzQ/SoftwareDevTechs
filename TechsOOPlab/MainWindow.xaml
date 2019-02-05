@@ -145,7 +145,6 @@
         <ToolBarTray Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
             <ToolBar Height="25" VerticalAlignment="Top">
                 <Button Click="AddResearcherButton_Click">
-                    
                     <TextBlock>Добавить</TextBlock>
                 </Button>
                 <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
@@ -160,7 +159,7 @@
         </ToolBarTray>
         <ToolBarTray Grid.Row="3" Grid.Column="1">
             <ToolBar Height="25" VerticalAlignment="Top">
-                <Button Click="AddResearcherButton_Click">
+                <Button Click="AddDataButton_Click">
                     <TextBlock>Добавить</TextBlock>
                 </Button>
                 <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>

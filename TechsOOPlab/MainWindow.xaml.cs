@@ -62,7 +62,7 @@ namespace TechsOOPlab
             var addWindow = new AddResearcher(true, _model.SelectedResearcher);
             if (addWindow.ShowDialog() ?? false)
             {
-
+                
             }
 
         }
@@ -70,24 +70,28 @@ namespace TechsOOPlab
         private void DeleteResearcherButton_Click(object sender, RoutedEventArgs e)
         {
             if (_model.SelectedResearcher == null) return;
-            var resVM = _model.SelectedResearcher;
-            var res = resVM.ToResearcher();
+            var resVm = _model.SelectedResearcher;
+            var res = resVm.ToResearcher();
             ModelContext.Researchers.Remove(res);
-            _model.Researchers.Remove(resVM);
+            _model.Researchers.Remove(resVm);
             _model.SelectedResearcher = null;
-
+        
         }
 
-        private void DeleteResearcher(Researcher researcher)
-        {
-            
-        }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
                 _model.SelectedResearcher = (ResearcherViewModel)e.AddedItems[0];
+            }
+        }
+
+        private void AddDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ArticleTab.IsSelected)
+            {
+                var articleWindow = new AddArticle(false, null);
             }
         }
     }

@@ -12,15 +12,12 @@ namespace TechsOOPlab.Model
         public int Id;
 
         // Название доклада
-        [DisplayName("Название доклада")]
         public string Name { get; set; }
 
         // Название конференции
-        [DisplayName("Название конференции")]
         public string ConferenceName { get; set; }
 
         // Дата выступления
-        [DisplayName("Дата выступления")]
         public DateTime PresentationDate { get; set; }
     }
 }
