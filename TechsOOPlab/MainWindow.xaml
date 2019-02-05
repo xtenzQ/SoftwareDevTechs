@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TechsOOPlab"
         xmlns:model="clr-namespace:TechsOOPlab.Model"
+        xmlns:viewModel="clr-namespace:TechsOOPlab.ViewModel"
+        
         mc:Ignorable="d"
         Title="LINQ" Height="450" Width="800">
     <Window.Resources>
@@ -14,6 +16,9 @@
         <model:Report x:Key="ReportSource"></model:Report>
         <model:Researcher x:Key="ResearcherSource"></model:Researcher>
     </Window.Resources>
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -54,7 +59,7 @@
                 </Button>
             </ToolBar>
         </ToolBarTray>
-        <TabControl x:Name="ResearcherAchivementsTab" Grid.Row="2" Grid.Column="1">
+        <TabControl x:Name="ResearcherAchivementsTab" Grid.Row="2" Grid.Column="1" DataContext="{Binding SelectedResearcher}">
             <TabItem x:Name="ReportsTab">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -63,7 +68,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid DataContext="{ Binding SelectedResearcher }" Height="auto" ItemsSource="{ Binding Researchers }">
+                    <DataGrid Height="auto" ItemsSource="{Binding Reports}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Название" Binding="{Binding Name }"/>
                             <DataGridTextColumn Width="*" Header="Регистрационный номер" Binding="{Binding RegisterNumber }"/>
@@ -81,7 +86,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid DataContext="{ Binding SelectedResearcher }" Height="auto" ItemsSource="{ Binding Researchers }">
+                    <DataGrid Height="auto">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Название статьи" Binding="{Binding Name }"/>
                             <DataGridTextColumn Width="*" Header="Название журнала" Binding="{Binding MagazineName }"/>
@@ -98,7 +103,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid DataContext="{ Binding SelectedResearcher }" Height="auto" ItemsSource="{ Binding Researchers }">
+                    <DataGrid Height="auto">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Название доклада" Binding="{Binding Name }"/>
                             <DataGridTextColumn Width="*" Header="Название конференции" Binding="{Binding ConferenceName }"/>
@@ -115,7 +120,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid DataContext="{ Binding SelectedResearcher }" Height="auto" ItemsSource="{ Binding Researchers }">
+                    <DataGrid Height="auto">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Название" Binding="{Binding Name }"/>
                             <DataGridTextColumn Width="*" Header="ФИО соавтора" Binding="{Binding ConferenceName }"/>
@@ -126,9 +131,11 @@
                 </TabItem.Content>
             </TabItem>
         </TabControl>
-        <DataGrid SelectedItem="{Binding SelectedResearcher}" CanUserAddRows="False" AutoGenerateColumns="False" Grid.Row="2" Grid.Column="0" ItemsSource="{ Binding Researchers }">
+        <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Grid.Row="2" Grid.Column="0" ItemsSource="{ Binding Researchers }" SelectionChanged="DataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="ФИО" Binding="{Binding FullName }"/>
+                <DataGridTextColumn Width="*" Header="Фамилия" Binding="{Binding LastName }"/>
+                <DataGridTextColumn Width="*" Header="Имя" Binding="{Binding FirstName }"/>
+                <DataGridTextColumn Width="*" Header="Отчество" Binding="{Binding MiddleName }"/>
                 <DataGridTextColumn Width="*" Header="№ отдела" Binding="{Binding DepartmentNumber }"/>
                 <DataGridTextColumn Width="*" Header="Возраст" Binding="{Binding Age}"/>
                 <DataGridTextColumn Width="*" Header="Ученая степень" Binding="{Binding AcademicDegree}"/>
@@ -138,14 +145,15 @@
         <ToolBarTray Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
             <ToolBar Height="25" VerticalAlignment="Top">
                 <Button Click="AddResearcherButton_Click">
+                    
                     <TextBlock>Добавить</TextBlock>
                 </Button>
                 <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
-                <Button>
+                <Button Click="EditResearcherButton_Click">
                     <TextBlock>Изменить</TextBlock>
                 </Button>
                 <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
-                <Button>
+                <Button Click="DeleteResearcherButton_Click">
                     <TextBlock>Удалить</TextBlock>
                 </Button>
             </ToolBar>

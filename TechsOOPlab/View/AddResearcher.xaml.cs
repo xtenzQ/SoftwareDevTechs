@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TechsOOPlab.Model;
 using TechsOOPlab.ViewModel;
 
 namespace TechsOOPlab.Forms
@@ -20,11 +21,18 @@ namespace TechsOOPlab.Forms
     /// </summary>
     public partial class AddResearcher : Window
     {
-        private MainWindowViewModel _model;
+        public ResearcherViewModel Researcher { get; }
 
-        public AddResearcher(bool AddOrEdit)
+        private bool _isEdit;
+
+        public AddResearcher(bool isEdit, ResearcherViewModel researcher)
         {
             InitializeComponent();
+            _isEdit = isEdit;
+            if (isEdit && researcher == null)
+                throw new ArgumentNullException(nameof(researcher), "Обязатльно нужен исследователь");
+            Researcher = researcher ?? new ResearcherViewModel();
+            DataContext = Researcher;
         }
 
         private void AddResearcherButton_Click(object sender, RoutedEventArgs e)
@@ -35,6 +43,15 @@ namespace TechsOOPlab.Forms
         private void Window_Closed(object sender, EventArgs e)
         {
             
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!_isEdit)
+            {
+                ModelContext.Researchers.Add(Researcher.ToResearcher());
+            }
+            DialogResult = true;
         }
     }
 }

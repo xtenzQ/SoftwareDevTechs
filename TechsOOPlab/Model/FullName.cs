@@ -13,13 +13,12 @@ namespace TechsOOPlab.Model
         private string _givenName;
         private string _middleName;
 
+
         public FullName(string surname, string givenName, string middleName)
         {
             _surname = surname;
             _givenName = givenName;
             _middleName = middleName;
         }
-
-        public string Surname { get => _surname; set => _surname = value; }
     }
 }

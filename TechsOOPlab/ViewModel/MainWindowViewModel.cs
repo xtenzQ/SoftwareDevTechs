@@ -10,41 +10,10 @@ namespace TechsOOPlab.ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private Researcher _selectedResearcher;
-        public ObservableCollection<Researcher> Researchers { get; set; }
+        private ResearcherViewModel _selectedResearcher;
+        public ObservableCollection<ResearcherViewModel> Researchers { get; set; }
 
-        private RelayCommand _addCommand;
-        public RelayCommand AddCommand
-        {
-            get
-            {
-                return _addCommand ?? (_addCommand = new RelayCommand(obj =>
-                {
-                    Researcher researcher = new Researcher();
-                    Researchers.Insert(0, researcher);
-                    MessageBox.Show("Сработало!");
-                }));
-            }
-        }
-
-        private RelayCommand _removeCommand;
-        public RelayCommand RemoveCommand
-        {
-            get
-            {
-                return _removeCommand ??
-                       (_removeCommand = new RelayCommand(obj =>
-                           {
-                               if (obj is Researcher researcher)
-                               {
-                                   Researchers.Remove(researcher);
-                               }
-                           },
-                           (obj) => Researchers.Count > 0));
-            }
-        }
-
-        public Researcher SelectedResearcher
+        public ResearcherViewModel SelectedResearcher
         {
             get => _selectedResearcher;
             set

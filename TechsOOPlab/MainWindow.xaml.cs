@@ -31,7 +31,7 @@ namespace TechsOOPlab
         {
             InitializeComponent();
             // создали модель
-            _model = new MainWindowViewModel {Researchers = new ObservableCollection<Researcher>(ModelContext.Researchers)};
+            _model = new MainWindowViewModel {Researchers = new ObservableCollection<ResearcherViewModel>(ModelContext.Researchers.Select(r => new ResearcherViewModel(r)))};
             // связали с окном
             DataContext = _model;
             // 
@@ -43,24 +43,52 @@ namespace TechsOOPlab
             // В хранилище
             ModelContext.Researchers.Add(researcher);
             // В отображаемой коллекции
-            _model.Researchers.Add(researcher);
+            //_model.Researchers.Add(researcher);
         }
 
         private void AddResearcherButton_Click(object sender, RoutedEventArgs e)
         {
-            var windowRes = new AddResearcher(false);
-            windowRes.
-            if (windowRes.ShowDialog() == true)
+            var addWindow = new AddResearcher(false, null);
+            if (addWindow.ShowDialog() ?? false)
             {
-                
+                //_model.Researchers = new ObservableCollection<ResearcherViewModel>(ModelContext.Researchers.Select(r => new ResearcherViewModel(r)));
+                _model.Researchers.Add(addWindow.Researcher);
             }
            
         }
 
-        private void DeleteResearcher(Researcher researcher)
+        private void EditResearcherButton_Click(object sender, RoutedEventArgs e)
         {
+            var addWindow = new AddResearcher(true, _model.SelectedResearcher);
+            if (addWindow.ShowDialog() ?? false)
+            {
+
+            }
 
         }
 
+        private void DeleteResearcherButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_model.SelectedResearcher == null) return;
+            var resVM = _model.SelectedResearcher;
+            var res = resVM.ToResearcher();
+            ModelContext.Researchers.Remove(res);
+            _model.Researchers.Remove(resVM);
+            _model.SelectedResearcher = null;
+
+        }
+
+        private void DeleteResearcher(Researcher researcher)
+        {
+            
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                _model.SelectedResearcher = (ResearcherViewModel)e.AddedItems[0];
+            }
+        }
     }
 }

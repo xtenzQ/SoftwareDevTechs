@@ -11,7 +11,9 @@ namespace TechsOOPlab.Model
         public int Id { get; set; }
 
         // ФИО
-        public FullName FullName { get; set; }
+        public string LastName { get; set; }  
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
 
         // Номер отдела
         public int DepartmentNumber { get; set; }
