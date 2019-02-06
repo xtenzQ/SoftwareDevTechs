@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TechsOOPlab.ViewModel;
 
 namespace TechsOOPlab.Forms
 {
@@ -19,9 +20,27 @@ namespace TechsOOPlab.Forms
     /// </summary>
     public partial class AddMonograph : Window
     {
-        public AddMonograph()
+        public MonographViewModel Monograph { get; }
+
+        private readonly bool _isEdit;
+
+        public AddMonograph(bool isEdit, MonographViewModel monograph)
         {
             InitializeComponent();
+            _isEdit = isEdit;
+            if (isEdit && monograph == null)
+                throw new ArgumentNullException(nameof(monograph), "Обязатльно нужен исследователь");
+            Monograph = monograph ?? new MonographViewModel();
+            DataContext = Monograph;
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!_isEdit)
+            {
+                // ModelContext.Researchers.Add();
+            }
+            DialogResult = true;
         }
     }
 }

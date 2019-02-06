@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TechsOOPlab.ViewModel;
 
 namespace TechsOOPlab.Forms
 {
@@ -19,9 +20,27 @@ namespace TechsOOPlab.Forms
     /// </summary>
     public partial class AddPresentation : Window
     {
-        public AddPresentation()
+        public PresentationViewModel Presentation { get; }
+
+        private bool _isEdit;
+
+        public AddPresentation(bool isEdit, PresentationViewModel presentation)
         {
             InitializeComponent();
+            _isEdit = isEdit;
+            if (isEdit && presentation == null)
+                throw new ArgumentNullException(nameof(presentation), "Обязатльно нужен исследователь");
+            Presentation = presentation ?? new PresentationViewModel();
+            DataContext = Presentation;
         }
-    }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!_isEdit)
+            {
+                // ModelContext.Researchers.Add();
+            }
+            DialogResult = true;
+        }
+}
 }

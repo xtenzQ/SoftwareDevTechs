@@ -4,9 +4,92 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TechsOOPlab.Forms"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:viewModel="clr-namespace:TechsOOPlab.ViewModel"
         mc:Ignorable="d"
-        Title="AddReport" Height="450" Width="800">
+        Title="Добавить отчёт" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.Resources>
+
+        <Style x:Key="placeHolder" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <TextBox Text="{Binding Text, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
+                                     x:Name="textSource" 
+                                     Background="Transparent" 
+                                     Panel.ZIndex="2" />
+                            <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1">
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Setter Property="Foreground" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, Source={x:Reference textSource}}" Value="">
+                                                <Setter Property="Foreground" Value="LightGray"/>
+                                            </DataTrigger>
+                                            <Trigger Property="IsFocused" Value="True">
+                                                <Setter Property="BorderThickness" Value="3"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <viewModel:ReportViewModel/>
+    </Window.DataContext>
     <Grid>
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Научный отчёт" Width="auto" Grid.Row="0" Padding="5" Margin="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"><Run Text="Название"/></TextBlock>
+                <TextBlock VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"><Run Text="Регистрационный номер"/></TextBlock>
+                <TextBlock VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"><Run Text="Год выпуска"/></TextBlock>
+                <TextBlock VerticalAlignment="Center" Grid.Row="4" Grid.Column="0"><Run Text="Число страниц"/></TextBlock>
+
+
+                <TextBox x:Name="FirstFocus" Style="{StaticResource placeHolder}" Tag="Введите название" Margin="5" MaxLength="250" Grid.Row="1" Grid.Column="1" TabIndex="0" Text="{Binding Name}"/>
+                <xctk:IntegerUpDown Margin="5" MaxLength="250" Grid.Row="2" Grid.Column="1" TabIndex="1" HorizontalAlignment="Left" MinWidth="70" Text="{Binding RegisterNumber}" />
+                <xctk:IntegerUpDown Margin="5" MaxLength="250" Grid.Row="3" Grid.Column="1" TabIndex="2" HorizontalAlignment="Left" MinWidth="70" Text="{Binding ReleaseYear}" />
+                <xctk:IntegerUpDown Margin="5" MaxLength="250" Grid.Row="4" Grid.Column="1" TabIndex="3" HorizontalAlignment="Left" MinWidth="70" Text="{Binding PageCount}" />
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Row="1" Grid.Column="0" Height="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Button Click="ButtonBase_OnClick"  Grid.Row="0" Grid.Column="0" Margin="5" Padding="5">
+                <!--<TextBlock><Run Text="Добавить"/></TextBlock>-->
+                Добавить
+            </Button>
+        </Grid>
     </Grid>
 </Window>
