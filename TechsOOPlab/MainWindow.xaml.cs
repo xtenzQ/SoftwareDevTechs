@@ -25,7 +25,7 @@ namespace TechsOOPlab
     public partial class MainWindow : Window
     {
         // модель представления данных
-        private MainWindowViewModel _model;
+        private readonly MainWindowViewModel _model;
 
         public MainWindow()
         {
@@ -255,6 +255,12 @@ namespace TechsOOPlab
             {
                 _model.SelectedMonograph = (MonographViewModel)e.AddedItems[0];
             }
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SearchBox.Text)) return;
+            _model.Researchers = new ObservableCollection<ResearcherViewModel>(ModelContext.Researchers.Where(r => r.LastName.StartsWith(SearchBox.Text)).Select(r => new ResearcherViewModel(r)));
         }
     }
 }

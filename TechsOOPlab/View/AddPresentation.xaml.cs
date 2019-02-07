@@ -21,8 +21,9 @@ namespace TechsOOPlab.Forms
     public partial class AddPresentation : Window
     {
         public PresentationViewModel Presentation { get; }
+        private readonly PresentationViewModel _model;
 
-        private bool _isEdit;
+        private readonly bool _isEdit;
 
         public AddPresentation(bool isEdit, PresentationViewModel presentation)
         {
@@ -31,6 +32,7 @@ namespace TechsOOPlab.Forms
             if (isEdit && presentation == null)
                 throw new ArgumentNullException(nameof(presentation), "Обязатльно нужен исследователь");
             Presentation = presentation ?? new PresentationViewModel();
+            _model = _isEdit ? Presentation.Clone() : Presentation;
             DataContext = Presentation;
         }
 
@@ -39,6 +41,10 @@ namespace TechsOOPlab.Forms
             if (!_isEdit)
             {
                 // ModelContext.Researchers.Add();
+            }
+            else
+            {
+                Presentation.Update(_model);
             }
             DialogResult = true;
         }

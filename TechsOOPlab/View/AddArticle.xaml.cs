@@ -22,8 +22,9 @@ namespace TechsOOPlab.Forms
     public partial class AddArticle : Window
     {
         public ArticleViewModel Article { get; }
+        private readonly ArticleViewModel _model;
 
-        private bool _isEdit;
+        private readonly bool _isEdit;
 
         public AddArticle(bool isEdit, ArticleViewModel article)
         {
@@ -32,6 +33,7 @@ namespace TechsOOPlab.Forms
             if (isEdit && article == null)
                 throw new ArgumentNullException(nameof(article), "Обязатльно нужен исследователь");
             Article = article ?? new ArticleViewModel();
+            _model = _isEdit ? Article.Clone() : Article;            
             DataContext = Article;
         }
 
@@ -40,6 +42,10 @@ namespace TechsOOPlab.Forms
             if (!_isEdit)
             {
                // ModelContext.Researchers.Add();
+            }
+            else
+            {
+                Article.Update(_model);
             }
             DialogResult = true;
         }

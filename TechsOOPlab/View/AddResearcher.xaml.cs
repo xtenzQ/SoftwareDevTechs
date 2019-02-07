@@ -22,9 +22,9 @@ namespace TechsOOPlab.Forms
     public partial class AddResearcher : Window
     {
         public ResearcherViewModel Researcher { get; }
-        private ResearcherViewModel _model;
+        private readonly ResearcherViewModel _model;
 
-        private bool _isEdit;
+        private readonly bool _isEdit;
 
         public AddResearcher(bool isEdit, ResearcherViewModel researcher)
         {

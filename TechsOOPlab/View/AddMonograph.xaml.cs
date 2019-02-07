@@ -21,6 +21,7 @@ namespace TechsOOPlab.Forms
     public partial class AddMonograph : Window
     {
         public MonographViewModel Monograph { get; }
+        private readonly MonographViewModel _model;
 
         private readonly bool _isEdit;
 
@@ -31,6 +32,7 @@ namespace TechsOOPlab.Forms
             if (isEdit && monograph == null)
                 throw new ArgumentNullException(nameof(monograph), "Обязатльно нужен исследователь");
             Monograph = monograph ?? new MonographViewModel();
+            _model = _isEdit ? Monograph.Clone() : Monograph;
             DataContext = Monograph;
         }
 
@@ -39,6 +41,10 @@ namespace TechsOOPlab.Forms
             if (!_isEdit)
             {
                 // ModelContext.Researchers.Add();
+            }
+            else
+            {
+                Monograph.Update(_model);
             }
             DialogResult = true;
         }

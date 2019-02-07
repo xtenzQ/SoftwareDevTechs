@@ -8,7 +8,7 @@ namespace TechsOOPlab.ViewModel
 {
     public class ArticleViewModel : INotifyPropertyChanged
     {
-        private Article _article;
+        private readonly Article _article;
 
         // Название статьи
         public string Name
@@ -59,6 +59,24 @@ namespace TechsOOPlab.ViewModel
         public Article ToArticle()
         {
             return _article;
+        }
+
+        public ArticleViewModel Clone()
+        {
+            var nRes = new Article()
+            {
+                Name = _article.Name,
+                MagazineName = _article.MagazineName,
+                ReleaseDate = _article.ReleaseDate
+            };
+            return new ArticleViewModel(nRes);
+        }
+
+        public void Update(ArticleViewModel articleViewModel)
+        {
+            _article.Name = articleViewModel.Name;
+            _article.MagazineName = articleViewModel.MagazineName;
+            _article.ReleaseDate = articleViewModel.ReleaseDate;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

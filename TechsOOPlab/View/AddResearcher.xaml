@@ -11,35 +11,7 @@
         Title="Добавить научного сотрудника" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Window.Resources>
     
-        <Style x:Key="placeHolder" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Grid>
-                            <TextBox Text="{Binding Text, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
-                                     x:Name="textSource" 
-                                     Background="Transparent" 
-                                     Panel.ZIndex="2" />
-                            <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1">
-                                <TextBox.Style>
-                                    <Style TargetType="{x:Type TextBox}">
-                                        <Setter Property="Foreground" Value="Transparent"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, Source={x:Reference textSource}}" Value="">
-                                                <Setter Property="Foreground" Value="LightGray"/>
-                                            </DataTrigger>
-                                            <Trigger Property="IsFocused" Value="True">
-                                                <Setter Property="BorderThickness" Value="3"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+      
     </Window.Resources>
     <Window.DataContext>
         <ViewModel:ResearcherViewModel/>
@@ -75,7 +47,8 @@
                 <TextBlock VerticalAlignment="Center" Grid.Row="6" Grid.Column="0"><Run Text="Ученая степень"/></TextBlock>
                 <TextBlock VerticalAlignment="Center" Grid.Row="7" Grid.Column="0"><Run Text="Должность"/></TextBlock>
 
-                
+
+
                 <TextBox x:Name="FirstFocus" Style="{StaticResource placeHolder}" Tag="Введите фамилию" Margin="5" MaxLength="250" Grid.Row="1" Grid.Column="1" TabIndex="0" Text="{Binding LastName}"/>
                 <TextBox Style="{StaticResource placeHolder}" Tag="Введите имя" Margin="5" MaxLength="250" Grid.Row="2" Grid.Column="1" TabIndex="1" Text="{Binding FirstName}"/>
                 <TextBox Style="{StaticResource placeHolder}" Tag="Введите отчество" Margin="5" MaxLength="250" Grid.Row="3" Grid.Column="1" TabIndex="2" Text="{Binding MiddleName}"/>

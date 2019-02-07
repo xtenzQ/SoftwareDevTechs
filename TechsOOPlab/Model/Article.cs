@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TechsOOPlab.Model
 {
-    public class Article
+    public class Article : IDataErrorInfo
     {
         public int Id { get; set; }
 
@@ -19,5 +19,10 @@ namespace TechsOOPlab.Model
 
         // Год и месяц издания
         public DateTime ReleaseDate { get; set; }
+
+
+        public string this[string columnName] => throw new NotImplementedException();
+
+        public string Error { get; }
     }
 }

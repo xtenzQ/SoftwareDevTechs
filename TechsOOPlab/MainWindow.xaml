@@ -172,7 +172,7 @@
                     <TextBlock>Удалить</TextBlock>
                 </Button>
                 <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
-                <TextBox Style="{StaticResource placeHolder}" Foreground="LightGray" Tag="Поиск..." Width="100"></TextBox>
+                <TextBox x:Name="SearchBox" Style="{StaticResource placeHolder}" Foreground="LightGray" Tag="Поиск..." Width="100" TextChanged="SearchBox_TextChanged"></TextBox>
             </ToolBar>
         </ToolBarTray>
         <ToolBarTray Grid.Row="3" Grid.Column="1">

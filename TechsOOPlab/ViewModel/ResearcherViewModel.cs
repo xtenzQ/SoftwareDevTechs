@@ -1,15 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using TechsOOPlab.Annotations;
+using TechsOOPlab.Commands;
 using TechsOOPlab.Model;
 
 namespace TechsOOPlab.ViewModel
 {
     public class ResearcherViewModel : INotifyPropertyChanged
     {
-        private Researcher _researcher;
+        private readonly Researcher _researcher;
 
         // ФИО
         public string LastName
@@ -211,6 +214,7 @@ namespace TechsOOPlab.ViewModel
             _researcher.Age = researcherViewModel.Age;
             _researcher.AcademicDegree = researcherViewModel.AcademicDegree;
             _researcher.Position = researcherViewModel.Position;
+            OnPropertyChanged(null);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -220,5 +224,94 @@ namespace TechsOOPlab.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        /*
+        private RelayCommand addCommand;
+        public RelayCommand AddCommand
+        {
+            get
+            {
+                return addCommand ??
+                       (addCommand = new RelayCommand(obj =>
+                       {
+                           Researcher researcher = new Researcher();
+                           .Insert(0, phone);
+                           SelectedPhone = phone;
+                       }));
+            }
+        }*/
+
+        /*
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = string.Empty;
+                switch (columnName)
+                {
+                    case "LastName":
+                        if (LastName.Length > 196)
+                        {
+                            error = "Длина Вашей фамлилии должна быть меньше 196 символов!";
+                        }
+                        else if (!Regex.IsMatch(LastName, @"^[а-яА-Я]+$"))
+                        {
+                            error = "Фамилия должна содержать только русские буквы!";
+                        }
+                        break;
+                    case "FirstName":
+                        if (FirstName.Length > 196)
+                        {
+                            error = "Длина Вашего имени должна быть меньше 196 символов!";
+                        }
+                        else if (!Regex.IsMatch(FirstName, @"^[а-яА-Я]+$"))
+                        {
+                            error = "Имя должно содержать только русские буквы!";
+                        }
+                        break;
+                    case "MiddleName":
+                        if (MiddleName.Length > 196)
+                        {
+                            error = "Длина Вашего отчества должна быть меньше 196 символов!";
+                        }
+                        else if (!Regex.IsMatch(FirstName, @"^[а-яА-Я]+$"))
+                        {
+                            error = "Отчество должно содержать только русские буквы!";
+                        }
+                        break;
+                    case "DepartmentNumber":
+                        if (DepartmentNumber < 1 || DepartmentNumber > 1000)
+                        {
+                            error = "Номер отдела должен быть больше 1 и меньше 1000!";
+                        }
+
+                        break;
+                    case "Age":
+                        if (Age < 0 || Age > 130)
+                        {
+                            error = "Возраст должен быть больше 0 и меньше 130";
+                        }
+
+                        break;
+                    case "Position":
+                        if (Position.Length > 100)
+                        {
+                            error = "Длина должности должна быть меньше 100 символов!";
+                        }
+                        else if (!Regex.IsMatch(FirstName, @"^[а-яА-Я]+$"))
+                        {
+                            error = "Должность должна содержать только русские буквы!";
+                        }
+
+                        break;
+                }
+                return error;
+            }
+        }
+
+        public string Error
+        {
+            get { throw new NotImplementedException(); }
+        }*/
     }
 }

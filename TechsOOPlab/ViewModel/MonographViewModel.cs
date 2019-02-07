@@ -8,7 +8,7 @@ namespace TechsOOPlab.ViewModel
 {
     public class MonographViewModel : INotifyPropertyChanged
     {
-        private Monograph _monograph;
+        private readonly Monograph _monograph;
 
         // Название монографии
         public string Name
@@ -93,6 +93,30 @@ namespace TechsOOPlab.ViewModel
         public Monograph ToMonograph()
         {
             return _monograph;
+        }
+
+        public MonographViewModel Clone()
+        {
+            var nRes = new Monograph()
+            {
+                Name = _monograph.Name,
+                CoauthorFirstName = _monograph.CoauthorFirstName,
+                CoauthorLastName = _monograph.CoauthorLastName,
+                CoauthorMiddleName = _monograph.CoauthorMiddleName,
+                ReleaseDate = _monograph.ReleaseDate,
+                PageCount = _monograph.PageCount,
+            };
+            return new MonographViewModel(nRes);
+        }
+
+        public void Update(MonographViewModel monographViewModel)
+        {
+            _monograph.Name = monographViewModel.Name;
+            _monograph.CoauthorFirstName = monographViewModel.CoauthorFirstName;
+            _monograph.CoauthorLastName = monographViewModel.CoauthorLastName;
+            _monograph.CoauthorMiddleName = monographViewModel.CoauthorMiddleName;
+            _monograph.ReleaseDate = monographViewModel.ReleaseDate;
+            _monograph.PageCount = monographViewModel.PageCount;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

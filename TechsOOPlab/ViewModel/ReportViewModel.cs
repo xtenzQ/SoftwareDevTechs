@@ -7,7 +7,7 @@ namespace TechsOOPlab.ViewModel
 {
     public class ReportViewModel : INotifyPropertyChanged
     {
-        private Report _report;
+        private readonly Report _report;
 
         // Название научного отчёта
         public string Name
@@ -70,6 +70,26 @@ namespace TechsOOPlab.ViewModel
         public Report ToReport()
         {
             return _report;
+        }
+
+        public ReportViewModel Clone()
+        {
+            var nRes = new Report()
+            {
+                Name = _report.Name,
+                RegisterNumber = _report.RegisterNumber,
+                ReleaseYear = _report.ReleaseYear,
+                PageCount = _report.PageCount
+            };
+            return new ReportViewModel(nRes);
+        }
+
+        public void Update(ReportViewModel reportViewModel)
+        {
+            _report.Name = reportViewModel.Name;
+            _report.RegisterNumber = reportViewModel.RegisterNumber;
+            _report.ReleaseYear = reportViewModel.ReleaseYear;
+            _report.PageCount = reportViewModel.PageCount;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
