@@ -259,8 +259,7 @@ namespace TechsOOPlab
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(SearchBox.Text)) return;
-            _model.Researchers = new ObservableCollection<ResearcherViewModel>(ModelContext.Researchers.Where(r => r.LastName.StartsWith(SearchBox.Text)).Select(r => new ResearcherViewModel(r)));
+            _model.Researchers = string.IsNullOrWhiteSpace(SearchBox.Text) ? new ObservableCollection<ResearcherViewModel>(ModelContext.Researchers.Select(r => new ResearcherViewModel(r))) : new ObservableCollection<ResearcherViewModel>(ModelContext.Researchers.Where(r => r.LastName.StartsWith(SearchBox.Text) || r.FirstName.StartsWith(SearchBox.Text) || r.MiddleName.StartsWith(SearchBox.Text) || r.DepartmentNumber.Equals(SearchBox.Text) || r.Age.Equals(SearchBox.Text) || r.AcademicDegree.StartsWith(SearchBox.Text)).Select(r => new ResearcherViewModel(r)));
         }
     }
 }

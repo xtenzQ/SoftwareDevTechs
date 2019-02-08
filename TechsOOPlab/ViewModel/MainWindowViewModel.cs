@@ -15,11 +15,67 @@ namespace TechsOOPlab.ViewModel
         private MonographViewModel _selectedMonograph;
         private PresentationViewModel _selectedPresentation;
         private ReportViewModel _selectedReport;
-        public ObservableCollection<ResearcherViewModel> Researchers { get; set; }
-        public ObservableCollection<ArticleViewModel> Articles { get; set; }
-        public ObservableCollection<MonographViewModel> Monographs { get; set; }
-        public ObservableCollection<PresentationViewModel> Presentations { get; set; }
-        public ObservableCollection<ReportViewModel> Reports { get; set; }
+
+        private ObservableCollection<ResearcherViewModel> _researchers;
+        private ObservableCollection<ArticleViewModel> _articles;
+        private ObservableCollection<MonographViewModel> _monographs;
+        private ObservableCollection<PresentationViewModel> _presentations;
+        private ObservableCollection<ReportViewModel> _reports;
+
+        public ObservableCollection<ResearcherViewModel> Researchers
+        {
+            get => _researchers;
+            set
+            {
+                if (Equals(value, _researchers)) return;
+                _researchers = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<ArticleViewModel> Articles
+        {
+            get => _articles;
+            set
+            {
+                if (Equals(value, _articles)) return;
+                _articles = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<MonographViewModel> Monographs
+        {
+            get => _monographs;
+            set
+            {
+                if (Equals(value, _monographs)) return;
+                _monographs = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<PresentationViewModel> Presentations
+        {
+            get => _presentations;
+            set
+            {
+                if (Equals(value, _presentations)) return;
+                _presentations = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<ReportViewModel> Reports
+        {
+            get => _reports;
+            set
+            {
+                if (Equals(value, _reports)) return;
+                _reports = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ResearcherViewModel SelectedResearcher
         {

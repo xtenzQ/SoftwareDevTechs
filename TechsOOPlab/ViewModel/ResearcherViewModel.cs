@@ -10,7 +10,7 @@ using TechsOOPlab.Model;
 
 namespace TechsOOPlab.ViewModel
 {
-    public class ResearcherViewModel : INotifyPropertyChanged
+    public class ResearcherViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
         private readonly Researcher _researcher;
 
@@ -105,6 +105,7 @@ namespace TechsOOPlab.ViewModel
         public ObservableCollection<ArticleViewModel> Articles { get; set; }
         public ObservableCollection<MonographViewModel> Monographs { get; set; }
         public ObservableCollection<PresentationViewModel> Presentations { get; set; }
+
 
         public ResearcherViewModel()
         {
@@ -225,8 +226,7 @@ namespace TechsOOPlab.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        /*
-        private RelayCommand addCommand;
+        /*private RelayCommand addCommand;
         public RelayCommand AddCommand
         {
             get
@@ -241,7 +241,6 @@ namespace TechsOOPlab.ViewModel
             }
         }*/
 
-        /*
         public string this[string columnName]
         {
             get
@@ -250,7 +249,7 @@ namespace TechsOOPlab.ViewModel
                 switch (columnName)
                 {
                     case "LastName":
-                        if (LastName.Length > 196)
+                        if (string.IsNullOrEmpty(LastName) || (LastName.Length > 196))
                         {
                             error = "Длина Вашей фамлилии должна быть меньше 196 символов!";
                         }
@@ -260,7 +259,7 @@ namespace TechsOOPlab.ViewModel
                         }
                         break;
                     case "FirstName":
-                        if (FirstName.Length > 196)
+                        if (string.IsNullOrEmpty(FirstName) || FirstName.Length > 196)
                         {
                             error = "Длина Вашего имени должна быть меньше 196 символов!";
                         }
@@ -270,35 +269,42 @@ namespace TechsOOPlab.ViewModel
                         }
                         break;
                     case "MiddleName":
-                        if (MiddleName.Length > 196)
+                        if (string.IsNullOrEmpty(MiddleName) || MiddleName.Length > 196)
                         {
                             error = "Длина Вашего отчества должна быть меньше 196 символов!";
                         }
-                        else if (!Regex.IsMatch(FirstName, @"^[а-яА-Я]+$"))
+                        else if (!Regex.IsMatch(MiddleName, @"^[а-яА-Я]+$"))
                         {
                             error = "Отчество должно содержать только русские буквы!";
                         }
                         break;
                     case "DepartmentNumber":
-                        if (DepartmentNumber < 1 || DepartmentNumber > 1000)
+                        if (DepartmentNumber  < 1 || DepartmentNumber > 1000)
                         {
                             error = "Номер отдела должен быть больше 1 и меньше 1000!";
                         }
 
                         break;
                     case "Age":
-                        if (Age < 0 || Age > 130)
+                        if (Age < 1 || Age > 130)
                         {
                             error = "Возраст должен быть больше 0 и меньше 130";
                         }
 
                         break;
+                    case "AcademicDegree":
+                        if (string.IsNullOrEmpty(AcademicDegree))
+                        {
+                            error = "Выберите степень!";
+                        }
+
+                        break;
                     case "Position":
-                        if (Position.Length > 100)
+                        if (string.IsNullOrEmpty(Position) || Position.Length > 100)
                         {
                             error = "Длина должности должна быть меньше 100 символов!";
                         }
-                        else if (!Regex.IsMatch(FirstName, @"^[а-яА-Я]+$"))
+                        else if (!Regex.IsMatch(Position, @"^[а-яА-Я]+$"))
                         {
                             error = "Должность должна содержать только русские буквы!";
                         }
@@ -312,6 +318,6 @@ namespace TechsOOPlab.ViewModel
         public string Error
         {
             get { throw new NotImplementedException(); }
-        }*/
+        }
     }
 }
