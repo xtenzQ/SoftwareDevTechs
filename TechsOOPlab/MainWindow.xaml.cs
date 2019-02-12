@@ -42,6 +42,27 @@ namespace TechsOOPlab
             };
             // связали с окном
             DataContext = _model;
+            var researcher1 = new ResearcherViewModel();
+            ModelContext.Researchers.Add(new Researcher()
+            {
+                LastName = "Русецкий",
+                FirstName = "Никита",
+                MiddleName = "Викторович",
+                AcademicDegree = "Без учёной степени",
+                Age = 22,
+                DepartmentNumber = 112,
+                Position = "Разработчик"
+            });
+            ModelContext.Researchers.Add(new Researcher()
+            {
+                LastName = "Русецкий",
+                FirstName = "Никита",
+                MiddleName = "Викторович",
+                AcademicDegree = "Без учёной степени",
+                Age = 22,
+                DepartmentNumber = 112,
+                Position = "Разработчик"
+            });
             // 
             //AddResearcher();
         }
@@ -267,6 +288,44 @@ namespace TechsOOPlab
         {
             var window = new Request();
             window.ShowDialog();
+        }
+
+        private void SearchBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            switch (ResearcherAchivementsTab.SelectedIndex)
+            {
+                case 0: _model.Reports = string.IsNullOrWhiteSpace(SearchBox1.Text) ? new ObservableCollection<ReportViewModel>(ModelContext.Reports.Select(r => new ReportViewModel(r))) : new ObservableCollection<ReportViewModel>(ModelContext.Reports.Where(r => r.Name.StartsWith(SearchBox1.Text) || r.RegisterNumber == Convert.ToInt32(SearchBox1.Text) || r.ReleaseYear == Convert.ToInt32(SearchBox1.Text) || r.PageCount == Convert.ToInt32(SearchBox1.Text)).Select(r => new ReportViewModel(r))); break;
+                case 1: _model.Articles = string.IsNullOrWhiteSpace(SearchBox1.Text) ? new ObservableCollection<ArticleViewModel>(ModelContext.Articles.Select(r => new ArticleViewModel(r))) : new ObservableCollection<ArticleViewModel>(ModelContext.Articles.Where(r => r.Name.StartsWith(SearchBox1.Text) || r.MagazineName.StartsWith(SearchBox1.Text)).Select(r => new ArticleViewModel(r))); break;
+                //case 2: DeletePresentation(); break;
+                //case 3: DeleteMonograph(); break;
+            }
+        }
+
+        private void PART_CLOSE_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void PART_MINIMIZE_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = System.Windows.WindowState.Minimized;
+        }
+
+        private void PART_MAXIMIZE_RESTORE_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == System.Windows.WindowState.Normal)
+            {
+                this.WindowState = System.Windows.WindowState.Maximized;
+            }
+            else
+            {
+                this.WindowState = System.Windows.WindowState.Normal;
+            }
+        }
+
+        private void PART_TITLEBAR_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }

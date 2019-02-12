@@ -5,6 +5,19 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        
+        <Style TargetType="DataGridCell">
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FFA500"/>
+                    <Setter Property="Foreground" Value="#000"/>
+                    <Setter Property="BorderBrush" Value="#FFA500"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                    <Setter Property="BorderBrush" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <!--The tool tip for the TextBox to display the validation error message.-->
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="VerticalAlignment" Value="Center" />

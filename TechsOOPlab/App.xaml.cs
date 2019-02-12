@@ -13,5 +13,9 @@ namespace TechsOOPlab
     /// </summary>
     public partial class App : Application
     {
+        private void PART_MAXIMIZE_RESTORE_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
