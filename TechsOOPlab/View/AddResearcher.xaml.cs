@@ -32,11 +32,12 @@ namespace TechsOOPlab.Forms
             InitializeComponent();
             _isEdit = isEdit;
             if (isEdit && researcher == null)
-                throw new ArgumentNullException(nameof(researcher), "Обязатльно нужен исследователь");
+                throw new ArgumentNullException(nameof(researcher), "Обязательно нужен исследователь");
             Researcher = researcher ?? new ResearcherViewModel();
             _model = _isEdit ? Researcher.Clone() : Researcher;
             DataContext = _model;
-            Console.WriteLine("FFFF = " + _noOfErrorsOnScreen);
+            AddButton.Content = _isEdit ? "Сохранить" : "Добавить";
+            this.Title = _isEdit ? "Изменить научного сотрудника" : "Добавить научного сотрудника";
         }
 
         private void Validation_Error(object sender, ValidationErrorEventArgs e)
@@ -45,7 +46,6 @@ namespace TechsOOPlab.Forms
                 _noOfErrorsOnScreen++;
             else
                 _noOfErrorsOnScreen--;
-            Console.WriteLine(_noOfErrorsOnScreen);
         }
 
         private void AddCustomer_CanExecute(object sender, CanExecuteRoutedEventArgs e)

@@ -15,35 +15,6 @@
         <model:Presentation x:Key="PresentationSource"></model:Presentation>
         <model:Report x:Key="ReportSource"></model:Report>
         <model:Researcher x:Key="ResearcherSource"></model:Researcher>
-        <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Grid>
-                            <TextBox Text="{Binding Path=Text,
-                                                RelativeSource={RelativeSource TemplatedParent}, 
-                                                Mode=TwoWay,
-                                                UpdateSourceTrigger=PropertyChanged}"
-                                     x:Name="textSource" 
-                                     Background="Transparent" 
-                                     Panel.ZIndex="2" />
-                            <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1">
-                                <TextBox.Style>
-                                    <Style TargetType="{x:Type TextBox}">
-                                        <Setter Property="Foreground" Value="Transparent"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
-                                                <Setter Property="Foreground" Value="LightGray"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </Window.Resources>
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
@@ -59,20 +30,9 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2">
-            <MenuItem Header="Редактирование">
-                <MenuItem Header="New Project" ></MenuItem>
-                <MenuItem Header="Open Project" >
-                    <MenuItem Header="WinForms"></MenuItem>
-                    <MenuItem Header="WPF" ></MenuItem>
-                </MenuItem>
-                <Separator />
-                <MenuItem Header="Exit" ></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Просмотр" ></MenuItem>
-            <MenuItem Header="Запросы" >
-                <MenuItem Header="Доклады на конференциях"></MenuItem>
-                <MenuItem Header="Число страниц в отчётах" ></MenuItem>
+        <Menu Grid.Row="0" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2" Background="White">
+            <MenuItem Header="Запросы" Click="MenuItem_Click" >
+           
             </MenuItem>
         </Menu>
         <TabControl x:Name="ResearcherAchivementsTab" Grid.Row="2" Grid.Column="1" DataContext="{Binding SelectedResearcher}">
@@ -84,7 +44,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Height="auto" ItemsSource="{Binding Reports}" SelectionChanged="DataGrid_SelectionChanged_1">
+                    <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Height="auto" ItemsSource="{Binding Reports}" SelectionChanged="DataGrid_SelectionChanged_1" Background="White">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Название" Binding="{Binding Name }"/>
                             <DataGridTextColumn Width="*" Header="Регистрационный номер" Binding="{Binding RegisterNumber }"/>
@@ -102,7 +62,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Height="auto" ItemsSource="{Binding Articles}" SelectionChanged="ArticlesDataGrid_SelectionChanged">
+                    <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Height="auto" ItemsSource="{Binding Articles}" SelectionChanged="ArticlesDataGrid_SelectionChanged" Background="White">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Название статьи" Binding="{Binding Name }"/>
                             <DataGridTextColumn Width="*" Header="Название журнала" Binding="{Binding MagazineName }"/>
@@ -119,11 +79,11 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Height="auto" ItemsSource="{Binding Presentations}" SelectionChanged="DataGrid_SelectionChanged_2">
+                    <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Height="auto" ItemsSource="{Binding Presentations}" SelectionChanged="DataGrid_SelectionChanged_2" Background="White">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Название доклада" Binding="{Binding Name }"/>
                             <DataGridTextColumn Width="*" Header="Название конференции" Binding="{Binding ConferenceName }"/>
-                            <DataGridTextColumn Width="*" Header="Дата выступления" Binding="{Binding ReleaseDate}"/>
+                            <DataGridTextColumn Width="*" Header="Дата выступления" Binding="{Binding PresentationDate}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem.Content>
@@ -136,10 +96,12 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Height="auto" SelectionChanged="DataGrid_SelectionChanged_3">
+                    <DataGrid SelectionMode="Single" CanUserAddRows="False" AutoGenerateColumns="False" Height="auto" ItemsSource="{ Binding Monographs }" SelectionChanged="DataGrid_SelectionChanged_3" Background="White">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Название" Binding="{Binding Name }"/>
-                            <DataGridTextColumn Width="*" Header="ФИО соавтора" Binding="{Binding ConferenceName }"/>
+                            <DataGridTextColumn Width="*" Header="Фамилия соавтора" Binding="{Binding CoauthorLastName }"/>
+                            <DataGridTextColumn Width="*" Header="Имя соавтора" Binding="{Binding CoauthorFirstName }"/>
+                            <DataGridTextColumn Width="*" Header="Отчество соавтора" Binding="{Binding CoauthorMiddleName }"/>
                             <DataGridTextColumn Width="*" Header="Год издания" Binding="{Binding ReleaseDate}"/>
                             <DataGridTextColumn Width="*" Header="Число страниц" Binding="{Binding PageCount}"/>
                         </DataGrid.Columns>
@@ -147,7 +109,7 @@
                 </TabItem.Content>
             </TabItem>
         </TabControl>
-        <DataGrid SelectionMode="Single" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" Grid.Row="2" Grid.Column="0" ItemsSource="{ Binding Researchers }" SelectionChanged="DataGrid_SelectionChanged">
+        <DataGrid SelectionMode="Single" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" Grid.Row="2" Grid.Column="0" ItemsSource="{ Binding Researchers }" SelectionChanged="DataGrid_SelectionChanged" Background="White">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Фамилия" Binding="{Binding LastName }"/>
                 <DataGridTextColumn Width="*" Header="Имя" Binding="{Binding FirstName }"/>
@@ -158,8 +120,8 @@
                 <DataGridTextColumn Width="*" Header="Должность" Binding="{Binding Position}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <ToolBarTray Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
-            <ToolBar Height="25" VerticalAlignment="Top">
+        <ToolBarTray Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Background="White">
+            <ToolBar Height="25" VerticalAlignment="Top" Background="White">
                 <Button Click="AddResearcherButton_Click">
                     <TextBlock>Добавить</TextBlock>
                 </Button>
@@ -175,8 +137,8 @@
                 <TextBox x:Name="SearchBox" Style="{StaticResource placeHolder}" Foreground="LightGray" Tag="Поиск..." Width="100" TextChanged="SearchBox_TextChanged"></TextBox>
             </ToolBar>
         </ToolBarTray>
-        <ToolBarTray Grid.Row="3" Grid.Column="1">
-            <ToolBar Height="25" VerticalAlignment="Top">
+        <ToolBarTray Grid.Row="3" Grid.Column="1" Background="White">
+            <ToolBar Height="25" VerticalAlignment="Top" Background="White">
                 <Button IsEnabled="{Binding ResearcherAddIsEnabled}" Click="AddDataButton_Click">
                     <TextBlock>Добавить</TextBlock>
                 </Button>
@@ -188,6 +150,8 @@
                 <Button IsEnabled="{Binding ResearcherAddIsEnabled}" Click="DeleteDataButton_Click">
                     <TextBlock>Удалить</TextBlock>
                 </Button>
+                <Separator HorizontalAlignment="Left" Width="1" VerticalAlignment="Stretch" Padding="0,5"/>
+                <TextBox x:Name="SearchBox1" Style="{StaticResource placeHolder}" Foreground="LightGray" Tag="Поиск..." Width="100" TextChanged="SearchBox1_TextChanged"></TextBox>
             </ToolBar>
         </ToolBarTray>
     </Grid>

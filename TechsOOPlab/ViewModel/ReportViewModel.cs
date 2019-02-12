@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TechsOOPlab.Annotations;
 using TechsOOPlab.Model;
 
 namespace TechsOOPlab.ViewModel
 {
-    public class ReportViewModel : INotifyPropertyChanged
+    public class ReportViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
         private readonly Report _report;
 
@@ -98,6 +99,47 @@ namespace TechsOOPlab.ViewModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = string.Empty;
+                switch (columnName)
+                {
+                    case nameof(Name):
+                        if (string.IsNullOrEmpty(Name) || (Name.Length > 196))
+                        {
+                            error = "Длина названия отчета должна быть меньше 196 символов!";
+                        }
+                        break;
+                    case nameof(RegisterNumber):
+                        if (RegisterNumber < 1 && RegisterNumber > 1000)
+                        {
+                            error = "Регистрационный номер должен лежать в интервале от 0 до 1000!";
+                        }
+                        break;
+                    case nameof(ReleaseYear):
+                        if (ReleaseYear < 1900 && ReleaseYear > DateTime.Now.Year)
+                        {
+                            error = "Год должен быть не меньше 1900 и не больше текущей даты!";
+                        }
+                        break;
+                    case nameof(PageCount):
+                        if (PageCount < 1)
+                        {
+                            error = "Длина научного отчета должна быть не меньше 1!";
+                        }
+                        break;
+                }
+                return error;
+            }
+        }
+
+        public string Error
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

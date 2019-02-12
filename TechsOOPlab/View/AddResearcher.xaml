@@ -10,8 +10,8 @@
         mc:Ignorable="d"
         Title="Добавить научного сотрудника" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Window.Resources>
-    
-      
+
+
     </Window.Resources>
     <Window.DataContext>
         <ViewModel:ResearcherViewModel/>
@@ -69,7 +69,7 @@
             </Grid>
         </GroupBox>
         <Grid Grid.Row="1" Grid.Column="0" Height="auto">
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -77,8 +77,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Button Content="Добавить" Command="New" Click="ButtonBase_OnClick"  Grid.Row="0" Grid.Column="0" Margin="5" Padding="5" />
-                <!--<TextBlock><Run Text="Добавить"/></TextBlock>-->
+            <Button x:Name="AddButton" Content="Добавить" Command="New" Click="ButtonBase_OnClick"  Grid.Row="0" Grid.Column="0" Margin="5" Padding="5" />
+            <!--<TextBlock><Run Text="Добавить"/></TextBlock>-->
         </Grid>
     </Grid>
 </Window>

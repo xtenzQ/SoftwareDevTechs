@@ -6,7 +6,7 @@ using TechsOOPlab.Model;
 
 namespace TechsOOPlab.ViewModel
 {
-    public class PresentationViewModel : INotifyPropertyChanged
+    public class PresentationViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
         private readonly Presentation _presentation;
 
@@ -85,6 +85,41 @@ namespace TechsOOPlab.ViewModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = string.Empty;
+                switch (columnName)
+                {
+                    case nameof(Name):
+                        if (string.IsNullOrEmpty(Name) || (Name.Length > 196))
+                        {
+                            error = "Длина названия доклада должна быть меньше 196 символов!";
+                        }
+                        break;
+                    case nameof(ConferenceName):
+                        if (string.IsNullOrEmpty(ConferenceName) || (ConferenceName.Length > 196))
+                        {
+                            error = "Длина названия конференции должна быть меньше 196 символов!";
+                        }
+                        break;
+                    case nameof(PresentationDate):
+                        if (PresentationDate.Year < 1900 && PresentationDate > DateTime.Now)
+                        {
+                            error = "Год должен быть не меньше 1900 и не больше текущей даты!";
+                        }
+                        break;
+                }
+                return error;
+            }
+        }
+
+        public string Error
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

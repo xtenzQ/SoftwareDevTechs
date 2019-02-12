@@ -1,12 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using TechsOOPlab.Annotations;
 using TechsOOPlab.Model;
 
 namespace TechsOOPlab.ViewModel
 {
-    public class MonographViewModel : INotifyPropertyChanged
+    public class MonographViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
         private readonly Monograph _monograph;
 
@@ -57,7 +58,7 @@ namespace TechsOOPlab.ViewModel
         }
 
         // Год издания
-        public DateTime ReleaseDate
+        public int ReleaseDate
         {
             get => _monograph.ReleaseDate;
             set
@@ -125,6 +126,71 @@ namespace TechsOOPlab.ViewModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = string.Empty;
+                switch (columnName)
+                {
+                    case nameof(Name):
+                        if (string.IsNullOrEmpty(Name) || (Name.Length > 196))
+                        {
+                            error = "Длина названия монографии должна быть меньше 196 символов!";
+                        }
+                        break;
+                    case nameof(CoauthorLastName):
+                        if (string.IsNullOrEmpty(CoauthorLastName) || (CoauthorLastName.Length > 196))
+                        {
+                            error = "Длина фамлилии должна быть меньше 196 символов!";
+                        }
+                        else if (!Regex.IsMatch(CoauthorLastName, @"^[а-яА-Я]+$"))
+                        {
+                            error = "Фамилия должна содержать только русские буквы!";
+                        }
+                        break;
+                    case nameof(CoauthorFirstName):
+                        if (string.IsNullOrEmpty(CoauthorFirstName) || CoauthorFirstName.Length > 196)
+                        {
+                            error = "Длина имени должна быть меньше 196 символов!";
+                        }
+                        else if (!Regex.IsMatch(CoauthorFirstName, @"^[а-яА-Я]+$"))
+                        {
+                            error = "Имя должно содержать только русские буквы!";
+                        }
+                        break;
+                    case nameof(CoauthorMiddleName):
+                        if (string.IsNullOrEmpty(CoauthorMiddleName) || CoauthorMiddleName.Length > 196)
+                        {
+                            error = "Длина Вашего отчества должна быть меньше 196 символов!";
+                        }
+                        else if (!Regex.IsMatch(CoauthorMiddleName, @"^[а-яА-Я]+$"))
+                        {
+                            error = "Отчество должно содержать только русские буквы!";
+                        }
+                        break;
+                    case nameof(ReleaseDate):
+                        if (ReleaseDate < 1900 && ReleaseDate > DateTime.Now.Year)
+                        {
+                            error = "Год должен быть не меньше 1900 и не больше текущей даты!";
+                        }
+                        break;
+                    case nameof(PageCount):
+                        if (PageCount < 1)
+                        {
+                            error = "Длина монографии должна быть не меньше 1!";
+                        }
+                        break;
+                }
+                return error;
+            }
+        }
+
+        public string Error
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

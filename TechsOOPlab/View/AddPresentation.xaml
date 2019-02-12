@@ -4,51 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TechsOOPlab.Forms"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:viewModel="clr-namespace:TechsOOPlab.ViewModel"
         mc:Ignorable="d"
         Title="Добавить доклад" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Window.Resources>
 
-        <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Grid>
-                            <TextBox Text="{Binding Path=Text,
-                                                RelativeSource={RelativeSource TemplatedParent}, 
-                                                Mode=TwoWay,
-                                                UpdateSourceTrigger=PropertyChanged}"
-                                     x:Name="textSource" 
-                                     Background="Transparent" 
-                                     Panel.ZIndex="2" />
-                            <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1">
-                                <TextBox.Style>
-                                    <Style TargetType="{x:Type TextBox}">
-                                        <Setter Property="Foreground" Value="Transparent"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
-                                                <Setter Property="Foreground" Value="LightGray"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </Window.Resources>
     <Window.DataContext>
         <viewModel:PresentationViewModel/>
     </Window.DataContext>
     <Grid FocusManager.FocusedElement="{Binding ElementName=FirstFocus}">
-
+        <Grid.CommandBindings>
+            <CommandBinding Command="New" Executed="AddCustomer_Executed" CanExecute="AddCustomer_CanExecute" />
+        </Grid.CommandBindings>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <GroupBox Header="Статья" Width="auto" Grid.Row="0" Padding="5" Margin="5">
+        <GroupBox Header="Статья" Width="auto" Grid.Row="0" Padding="5, 0, 30, 0" Margin="5">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -69,9 +43,12 @@
                 <TextBlock VerticalAlignment="Center" Grid.Row="2" Grid.Column="0">Название конференции</TextBlock>
                 <TextBlock VerticalAlignment="Center" Grid.Row="3" Grid.Column="0">Дата выступления</TextBlock>
 
-                <TextBox x:Name="FirstFocus" Style="{StaticResource placeHolder}" Tag="Введите названние доклада" Margin="5" MaxLength="250" Grid.Row="1" Grid.Column="1" TabIndex="0" Text="{Binding Name}"></TextBox>
-                <TextBox Style="{StaticResource placeHolder}" Tag="Введите название конференции" Margin="5" MaxLength="250" Grid.Row="2" Grid.Column="1" TabIndex="1" Text="{Binding ConferenceName}"></TextBox>
-                <DatePicker Name="datePicker1" IsDropDownOpen="True" HorizontalAlignment="Left" MinWidth="130" SelectedDateFormat="Short" Margin="5" Grid.Row="3" Grid.Column="1" TabIndex="2" Text="{Binding PresentationDate}"/>
+                <TextBox x:Name="FirstFocus" Style="{StaticResource placeHolder}" Tag="Введите названние доклада" Margin="5" MaxLength="250" Grid.Row="1" Grid.Column="1" TabIndex="0" Validation.Error="Validation_Error" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=Name,
+                        ValidatesOnDataErrors=true, NotifyOnValidationError=true}"></TextBox>
+                <TextBox Style="{StaticResource placeHolder}" Tag="Введите название конференции" Margin="5" MaxLength="250" Grid.Row="2" Grid.Column="1" TabIndex="1" Validation.Error="Validation_Error" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=ConferenceName,
+                        ValidatesOnDataErrors=true, NotifyOnValidationError=true}"></TextBox>
+                <xctk:DateTimePicker x:Name="DatePicker" HorizontalAlignment="Left" MinWidth="130" Margin="5" Grid.Row="3" Grid.Column="1" TabIndex="2" Validation.Error="Validation_Error" Value="{Binding UpdateSourceTrigger=PropertyChanged, Path=PresentationDate,
+                        ValidatesOnDataErrors=true, NotifyOnValidationError=true}"/>
             </Grid>
         </GroupBox>
         <Grid Grid.Row="1" Column="0" Height="auto">
@@ -82,8 +59,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Click="ButtonBase_OnClick"  Grid.Row="0" Grid.Column="0" Margin="5" Padding="5">
-                <TextBlock>Добавить</TextBlock>
+            <Button Content="Добавить" Command="New" x:Name="AddButton" Click="ButtonBase_OnClick"  Grid.Row="0" Grid.Column="0" Margin="5" Padding="5">
             </Button>
         </Grid>
     </Grid>

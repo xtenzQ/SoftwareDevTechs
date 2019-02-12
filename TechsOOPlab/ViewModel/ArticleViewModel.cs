@@ -6,7 +6,7 @@ using TechsOOPlab.Model;
 
 namespace TechsOOPlab.ViewModel
 {
-    public class ArticleViewModel : INotifyPropertyChanged
+    public class ArticleViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
         private readonly Article _article;
 
@@ -85,6 +85,41 @@ namespace TechsOOPlab.ViewModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = string.Empty;
+                switch (columnName)
+                {
+                    case nameof(Name):
+                        if (string.IsNullOrEmpty(Name) || (Name.Length > 196))
+                        {
+                            error = "Длина названия статьи должна быть меньше 196 символов!";
+                        }
+                        break;
+                    case nameof(MagazineName):
+                        if (string.IsNullOrEmpty(MagazineName) || MagazineName.Length > 196)
+                        {
+                            error = "Длина незвания журнала должна быть меньше 196 символов!";
+                        }
+                        break;
+                    case nameof(ReleaseDate):
+                        if (ReleaseDate.Year < 1900 && ReleaseDate > DateTime.Now)
+                        {
+                            error = "Год должен быть не меньше 1900 и не больше текущей даты!";
+                        }
+                        break;
+                }
+                return error;
+            }
+        }
+
+        public string Error
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

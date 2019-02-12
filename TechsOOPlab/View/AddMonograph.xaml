@@ -10,46 +10,19 @@
         Title="Добавить монографию" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Window.Resources>
 
-        <Style x:Key="placeHolder" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Grid>
-                            <TextBox Text="{Binding Text, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
-                                     x:Name="textSource" 
-                                     Background="Transparent" 
-                                     Panel.ZIndex="2" />
-                            <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1">
-                                <TextBox.Style>
-                                    <Style TargetType="{x:Type TextBox}">
-                                        <Setter Property="Foreground" Value="Transparent"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, Source={x:Reference textSource}}" Value="">
-                                                <Setter Property="Foreground" Value="LightGray"/>
-                                            </DataTrigger>
-                                            <Trigger Property="IsFocused" Value="True">
-                                                <Setter Property="BorderThickness" Value="3"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </Window.Resources>
     <Window.DataContext>
         <viewModel:MonographViewModel/>
     </Window.DataContext>
     <Grid>
-
+        <Grid.CommandBindings>
+            <CommandBinding Command="New" Executed="AddCustomer_Executed" CanExecute="AddCustomer_CanExecute" />
+        </Grid.CommandBindings>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <GroupBox Header="Монография" Width="auto" Grid.Row="0" Padding="5" Margin="5">
+        <GroupBox Header="Монография" Width="auto" Grid.Row="0" Padding="5, 0, 30, 0" Margin="5">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -73,12 +46,18 @@
                 <TextBlock VerticalAlignment="Center" Grid.Row="4" Grid.Column="0"><Run Text="Год издания"/></TextBlock>
                 <TextBlock VerticalAlignment="Center" Grid.Row="5" Grid.Column="0"><Run Text="Число страниц"/></TextBlock>
 
-                <TextBox x:Name="FirstFocus" Style="{StaticResource placeHolder}" Tag="Введите название" Margin="5" MaxLength="250" Grid.Row="0" Grid.Column="1" TabIndex="0" Text="{Binding Name}"/>
-                <TextBox Style="{StaticResource placeHolder}" Tag="Введите фамилию" Margin="5" MaxLength="250" Grid.Row="1" Grid.Column="1" TabIndex="0" Text="{Binding CoauthorLastName}"/>
-                <TextBox Style="{StaticResource placeHolder}" Tag="Введите имя" Margin="5" MaxLength="250" Grid.Row="2" Grid.Column="1" TabIndex="1" Text="{Binding CoauthorFirstName}"/>
-                <TextBox Style="{StaticResource placeHolder}" Tag="Введите отчество" Margin="5" MaxLength="250" Grid.Row="3" Grid.Column="1" TabIndex="2" Text="{Binding CoauthorMiddleName}"/>
-                <xctk:IntegerUpDown Margin="5" MaxLength="250" Grid.Row="4" Grid.Column="1" TabIndex="3" HorizontalAlignment="Left" MinWidth="70" Text="{Binding ReleaseDate}" />
-                <xctk:IntegerUpDown Margin="5" MaxLength="250" Grid.Row="5" Grid.Column="1" TabIndex="4" HorizontalAlignment="Left" MinWidth="70" Text="{Binding PageCount}" />
+                <TextBox x:Name="FirstFocus" Style="{StaticResource placeHolder}" Tag="Введите название" Margin="5" MaxLength="250" Grid.Row="0" Grid.Column="1" TabIndex="0" Validation.Error="Validation_Error" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=Name,
+                        ValidatesOnDataErrors=true, NotifyOnValidationError=true}"/>
+                <TextBox Style="{StaticResource placeHolder}" Tag="Введите фамилию" Margin="5" MaxLength="250" Grid.Row="1" Grid.Column="1" TabIndex="0" Validation.Error="Validation_Error" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=CoauthorLastName,
+                        ValidatesOnDataErrors=true, NotifyOnValidationError=true}"/>
+                <TextBox Style="{StaticResource placeHolder}" Tag="Введите имя" Margin="5" MaxLength="250" Grid.Row="2" Grid.Column="1" TabIndex="1" Validation.Error="Validation_Error" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=CoauthorFirstName,
+                        ValidatesOnDataErrors=true, NotifyOnValidationError=true}"/>
+                <TextBox Style="{StaticResource placeHolder}" Tag="Введите отчество" Margin="5" MaxLength="250" Grid.Row="3" Grid.Column="1" TabIndex="2" Validation.Error="Validation_Error" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=CoauthorMiddleName,
+                        ValidatesOnDataErrors=true, NotifyOnValidationError=true}"/>
+                <xctk:IntegerUpDown x:Name="ReleaseYearNUD" Margin="5" MaxLength="250" Grid.Row="4" Grid.Column="1" TabIndex="3" HorizontalAlignment="Left" MinWidth="70" Validation.Error="Validation_Error" Value="{Binding UpdateSourceTrigger=PropertyChanged, Path=ReleaseDate,
+                        ValidatesOnDataErrors=true, NotifyOnValidationError=true}" />
+                <xctk:IntegerUpDown Margin="5" MaxLength="250" Grid.Row="5" Grid.Column="1" TabIndex="4" HorizontalAlignment="Left" MinWidth="70" Validation.Error="Validation_Error" Value="{Binding UpdateSourceTrigger=PropertyChanged, Path=PageCount,
+                        ValidatesOnDataErrors=true, NotifyOnValidationError=true}" />
             </Grid>
         </GroupBox>
         <Grid Grid.Row="1" Grid.Column="0" Height="auto">
@@ -89,9 +68,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Button Click="ButtonBase_OnClick"  Grid.Row="0" Grid.Column="0" Margin="5" Padding="5">
+            <Button x:Name="AddButton" Click="ButtonBase_OnClick" Content="Добавить" Command="New" Grid.Row="0" Grid.Column="0" Margin="5" Padding="5">
                 <!--<TextBlock><Run Text="Добавить"/></TextBlock>-->
-                Добавить
             </Button>
         </Grid>
     </Grid>

@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TechsOOPlab.Forms;
 using TechsOOPlab.Model;
+using TechsOOPlab.Requests;
 using TechsOOPlab.ViewModel;
 
 namespace TechsOOPlab
@@ -260,6 +261,12 @@ namespace TechsOOPlab
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             _model.Researchers = string.IsNullOrWhiteSpace(SearchBox.Text) ? new ObservableCollection<ResearcherViewModel>(ModelContext.Researchers.Select(r => new ResearcherViewModel(r))) : new ObservableCollection<ResearcherViewModel>(ModelContext.Researchers.Where(r => r.LastName.StartsWith(SearchBox.Text) || r.FirstName.StartsWith(SearchBox.Text) || r.MiddleName.StartsWith(SearchBox.Text) || r.DepartmentNumber.Equals(SearchBox.Text) || r.Age.Equals(SearchBox.Text) || r.AcademicDegree.StartsWith(SearchBox.Text)).Select(r => new ResearcherViewModel(r)));
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new Request();
+            window.ShowDialog();
         }
     }
 }

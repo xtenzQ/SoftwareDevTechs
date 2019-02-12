@@ -73,6 +73,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Requests\Request.xaml.cs">
+      <DependentUpon>Request.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ArticleViewModel.cs" />
     <Compile Include="ViewModel\MonographViewModel.cs" />
     <Compile Include="ViewModel\PresentationViewModel.cs" />
@@ -96,6 +99,10 @@
     <Compile Include="Model\ModelContext.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Page Include="Requests\Request.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddArticle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

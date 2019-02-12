@@ -20,7 +20,7 @@ namespace TechsOOPlab.Model
         public string CoauthorMiddleName { get; set; }
 
         // Год издания
-        public DateTime ReleaseDate { get; set; }
+        public int ReleaseDate { get; set; }
 
         // Число страниц
         public int PageCount { get; set; }
