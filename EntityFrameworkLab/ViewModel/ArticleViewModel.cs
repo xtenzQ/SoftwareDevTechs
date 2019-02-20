@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using EntityFrameworkLab.Model;
 using EntityFrameworkLab.Support;
 
@@ -7,6 +8,7 @@ namespace EntityFrameworkLab.ViewModel
     public class ArticleViewModel : NotifyUiBase
     {
         private readonly Article _article;
+        public ObservableCollection<Article> Articles { get; set; }
 
         // Название статьи
         public string Name

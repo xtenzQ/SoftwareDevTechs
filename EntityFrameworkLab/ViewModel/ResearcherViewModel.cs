@@ -12,8 +12,8 @@ namespace EntityFrameworkLab.ViewModel
 {
     public class ResearcherViewModel : NotifyUiBase, IDataErrorInfo
     {
-        private readonly Researcher _researcher;
-        private ResDbContext _resDbContext;
+        private Researcher _researcher;
+        private readonly ResDbContext _resDbContext;
 
         // ФИО
         public string LastName
@@ -97,11 +97,6 @@ namespace EntityFrameworkLab.ViewModel
             }
         }
 
-        public IEnumerable<string> AcademicDegrees => new[]
-        {
-            "Без степени", "Кандидат наук", "Доктор наук"
-        };
-
         public ObservableCollection<ReportViewModel> Reports { get; set; }
         public ObservableCollection<ArticleViewModel> Articles { get; set; }
         public ObservableCollection<MonographViewModel> Monographs { get; set; }
@@ -134,6 +129,7 @@ namespace EntityFrameworkLab.ViewModel
             _researcher.Articles.Add(newArticle);
             _resDbContext.Articles.Add(newArticle);
             Articles.Add(article);
+            _resDbContext.SaveChanges();
         }
 
         public void AddMonograph(MonographViewModel monograph)
@@ -142,6 +138,7 @@ namespace EntityFrameworkLab.ViewModel
             _researcher.Monographs.Add(newMonograph);
             _resDbContext.Monographs.Add(newMonograph);
             Monographs.Add(monograph);
+            _resDbContext.SaveChanges();
         }
 
         public void AddPresentation(PresentationViewModel presentation)
@@ -150,6 +147,7 @@ namespace EntityFrameworkLab.ViewModel
             _researcher.Presentations.Add(newPresentation);
             _resDbContext.Presentations.Add(newPresentation);
             Presentations.Add(presentation);
+            _resDbContext.SaveChanges();
         }
 
         public void AddReport(ReportViewModel report)
@@ -158,6 +156,7 @@ namespace EntityFrameworkLab.ViewModel
             _researcher.Reports.Add(newReport);
             _resDbContext.Reports.Add(newReport);
             Reports.Add(report);
+            _resDbContext.SaveChanges();
         }
 
         public void DeleteArticle(ArticleViewModel article)
@@ -166,6 +165,7 @@ namespace EntityFrameworkLab.ViewModel
             _researcher.Articles.Remove(newArticle);
             _resDbContext.Articles.Remove(newArticle);
             Articles.Remove(article);
+            _resDbContext.SaveChanges();
         }
 
         public void DeleteMonograph(MonographViewModel monograph)
@@ -174,6 +174,7 @@ namespace EntityFrameworkLab.ViewModel
             _researcher.Monographs.Remove(newMonograph);
             _resDbContext.Monographs.Remove(newMonograph);
             Monographs.Remove(monograph);
+            _resDbContext.SaveChanges();
         }
 
         public void DeletePresentation(PresentationViewModel presentation)
@@ -182,6 +183,7 @@ namespace EntityFrameworkLab.ViewModel
             _researcher.Presentations.Remove(newPresentation);
             _resDbContext.Presentations.Remove(newPresentation);
             Presentations.Remove(presentation);
+            _resDbContext.SaveChanges();
         }
 
         public void DeleteReport(ReportViewModel report)
@@ -190,6 +192,7 @@ namespace EntityFrameworkLab.ViewModel
             _researcher.Reports.Remove(newReport);
             _resDbContext.Reports.Remove(newReport);
             Reports.Remove(report);
+            _resDbContext.SaveChanges();
         }
 
         public ResearcherViewModel Clone()

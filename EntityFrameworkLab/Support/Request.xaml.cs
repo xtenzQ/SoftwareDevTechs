@@ -28,7 +28,7 @@ namespace EntityFrameworkLab.Requests
         {
             if (string.IsNullOrEmpty(Updown.Text)) return;
             SearchResult2.Text = _resDbContext.Researchers.Where(x => x.DepartmentNumber == Convert.ToInt32(Updown.Text))
-                .Sum(s => s.Reports.Sum(y => y.PageCount)).ToString();
+                .Sum(s => _resDbContext.Reports.Sum(y => y.PageCount)).ToString();
         }
     }
 }

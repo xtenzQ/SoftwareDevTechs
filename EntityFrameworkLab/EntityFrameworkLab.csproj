@@ -178,7 +178,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Support\CommandMessage.cs" />
+    <Compile Include="Support\CrudVMBase.cs" />
+    <Compile Include="Support\IEntity.cs" />
+    <Compile Include="Support\NavigateMessage.cs" />
+    <Compile Include="Support\RelayCommand.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Support\Request.xaml.cs">
       <DependentUpon>Request.xaml</DependentUpon>
@@ -274,6 +278,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DAL\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" />

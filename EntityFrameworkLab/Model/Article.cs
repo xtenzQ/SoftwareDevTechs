@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EntityFrameworkLab.Model
 {
@@ -14,5 +15,7 @@ namespace EntityFrameworkLab.Model
 
         // Год и месяц издания
         public DateTime ReleaseDate { get; set; }
+
+        public virtual ICollection<Researcher> Researchers { get; set; }
     }
 }
